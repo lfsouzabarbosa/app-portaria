@@ -15,6 +15,7 @@ const foto = () => {
         
         const imageSrc = webcamRef.current.getScreenshot();
         [webcamRef]
+        console.log(imageSrc);
         
     }
         return (

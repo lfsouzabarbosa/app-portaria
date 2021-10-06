@@ -4,6 +4,7 @@ const AdminBroMongoose = require('@admin-bro/mongoose')
 const mongoose = require('mongoose')
 const express = require('express')
 const app = express()
+const moment = require('moment')
 
 AdminBro.registerAdapter(AdminBroMongoose)
 
@@ -36,7 +37,8 @@ const visitante = mongoose.model('Visitante', {
         required: true
     },
     foto: {
-        type: String,
+        // type: String,
+        type: Object,
         //required: true
     }
 })
@@ -90,8 +92,11 @@ const adminBro = new AdminBro({
                 parent: 'Menu',
                 properties: {
                     foto: {
-                        type: 'richtext',
+                        // type: 'richtext',
                         isVisible: { list: true, filter: false, show: true, edit: true },
+                        dashboard:{
+                            edit: AdminBro.bundle('./foto.jsx')
+                        }
                     },
                     data: {
                         isVisible: { list: false, filter: false, show: true, edit: false },
@@ -227,20 +232,20 @@ const adminBro = new AdminBro({
     }
 })
 
-// const router = AdminBroExpress.buildRouter(adminBro)
-const router = AdminBroExpress.buildAuthenticatedRouter(adminBro, {
-    authenticate: async (email, senha) => {
-      const user = await Usuario.findOne({ email })
-      if (user) {
-        const matched = await user.senha
-        if (matched) {
-          return user
-        }
-      }
-      return false
-    },
-    cookiePassword: 'some-secret-password-used-to-secure-cookie',
-  })
+const router = AdminBroExpress.buildRouter(adminBro)
+// const router = AdminBroExpress.buildAuthenticatedRouter(adminBro, {
+//     authenticate: async (email, senha) => {
+//       const user = await Usuario.findOne({ email })
+//       if (user) {
+//         const matched = await user.senha
+//         if (matched) {
+//           return user
+//         }
+//       }
+//       return false
+//     },
+//     cookiePassword: 'some-secret-password-used-to-secure-cookie',
+//   })
 
 app.use(adminBro.options.rootPath, router)
-app.listen(8080, () => console.log('AdminBro is under localhost:8080/admin'))
+app.listen(8080, () => console.log('AdminBro is under http://localhost:8080/admin since [%s]', moment().format("YYYY-MM-DDTHH:mm:ssZZ")))
