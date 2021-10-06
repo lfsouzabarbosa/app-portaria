@@ -5,11 +5,18 @@
   "dependencies": {
     "@admin-bro/express": "^3.1.0",
     "@admin-bro/mongoose": "^1.1.0",
+    "@rrelmy/react-webcam": "^5.2.3",
     "admin-bro": "^4.0.1",
+    "argon2": "^0.28.2",
     "express": "^4.17.1",
     "express-formidable": "^1.2.0",
+    "express-session": "^1.17.2",
     "mongoose": "^6.0.8",
     "nodemon": "^2.0.13",
-    "tslib": "^2.3.1"
+    "pm2": "^5.1.2",
+    "react-console-log": "^1.1.14",
+    "react-webcam": "^6.0.0",
+    "tslib": "^2.3.1",
+    "webcam-easy": "^1.0.5"
   }
 }

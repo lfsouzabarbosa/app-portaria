@@ -90,11 +90,8 @@ const adminBro = new AdminBro({
                 parent: 'Menu',
                 properties: {
                     foto: {
-                        // type: 'richtext',
-                        isVisible: { list: false, filter: false, show: true, edit: true },
-                        components: {
-                         //  edit: AdminBro.bundle('./foto')
-                        } 
+                        type: 'richtext',
+                        isVisible: { list: true, filter: false, show: true, edit: true },
                     },
                     data: {
                         isVisible: { list: false, filter: false, show: true, edit: false },
