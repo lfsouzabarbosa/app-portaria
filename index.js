@@ -107,9 +107,14 @@ const adminBro = new AdminBro({
                     id: {
                         isVisible: { list: false, filter: false, show: false, edit: false },
                     },
+                    //deixa visivel por eqto 202110111805
+                    // profilePhotoLocation:{
+                    //     isVisible: false,
+                    // },
                     uploadImage:{
                         components:{
-                            edit: AdminBro.bundle('./src/visitante/components/upload-image.edit.tsx')
+                            edit: AdminBro.bundle('./src/visitante/components/upload-image.edit.tsx'),
+                            list: AdminBro.bundle('./src/visitante/components/upload-image.list.tsx'),
                         }
                     }
                 },
@@ -268,4 +273,7 @@ const router = AdminBroExpress.buildRouter(adminBro)
 //   })
 
 app.use(adminBro.options.rootPath, router)
+
+app.use('/uploads', express.static('uploads'));
+
 app.listen(8080, () => console.log('AdminBro is under http://localhost:8080/admin since [%s]', moment().format("YYYY-MM-DDTHH:mm:ssZZ")))
