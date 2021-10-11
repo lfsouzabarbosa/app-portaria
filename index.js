@@ -36,10 +36,8 @@ const visitante = mongoose.model('Visitante', {
         type: String,
         required: true
     },
-    foto: {
-        // type: String,
-        type: Object,
-        //required: true
+    profilePhotoLocation: {
+        type: String,
     }
 })
 
@@ -91,19 +89,24 @@ const adminBro = new AdminBro({
             options: {
                 parent: 'Menu',
                 properties: {
-                    foto: {
-                        // type: 'richtext',
-                        isVisible: { list: true, filter: false, show: true, edit: true },
-                        dashboard:{
-                            edit: AdminBro.bundle('./foto.jsx')
-                        }
-                    },
+                    // foto: {
+                    //     // type: 'richtext',
+                    //     isVisible: { list: true, filter: false, show: true, edit: true },
+                    //     dashboard:{
+                    //         edit: AdminBro.bundle('./foto.jsx')
+                    //     }
+                    // },
                     data: {
                         isVisible: { list: false, filter: false, show: true, edit: false },
                     },
                     id: {
                         isVisible: { list: false, filter: false, show: false, edit: false },
                     },
+                    profilePhotoLocation:{
+                        components:{
+                            edit: AdminBro.bundle('./src/visitante/components/profile-photo-location.edit.tsx')
+                        }
+                    }
                 },
                 actions: {
                     edit: { isAccessible: podeEditarUsuarios },

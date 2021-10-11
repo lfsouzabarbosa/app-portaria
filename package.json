@@ -13,7 +13,7 @@
     "express": "^4.17.1",
     "express-formidable": "^1.2.0",
     "express-session": "^1.17.2",
-    "mongoose": "^6.0.8",
+    "mongoose": "^6.0.10",
     "nodemon": "^2.0.13",
     "pm2": "^5.1.2",
     "react-console-log": "^1.1.14",
