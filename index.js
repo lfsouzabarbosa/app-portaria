@@ -121,6 +121,12 @@ const adminBro = new AdminBro({
 							list: AdminBro.bundle("./src/visitante/components/upload-image.list.tsx"),
 						},
 					},
+					webcam: {
+						isVisible: { list: true, filter: false, show: true, edit: true },
+						components:{
+							edit: AdminBro.bundle('./src/visitante/components/webcam.jsx'),
+						},
+					},
 				},
 				actions: {
 					new: {
