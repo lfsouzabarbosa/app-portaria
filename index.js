@@ -103,13 +103,6 @@ const adminBro = new AdminBro({
 			options: {
 				parent: "Menu",
 				properties: {
-					// foto: {
-					//     // type: 'richtext',
-					//     isVisible: { list: true, filter: false, show: true, edit: true },
-					//     dashboard:{
-					//         edit: AdminBro.bundle('./foto.jsx')
-					//     }
-					// },
 					data: {
 						isVisible: { list: false, filter: false, show: true, edit: false },
 					},
@@ -128,20 +121,22 @@ const adminBro = new AdminBro({
 					},
 					webcam: {
 						isVisible: { list: false, filter: false, show: true, edit: true },
-						components:{
-							edit: AdminBro.bundle('./src/visitante/components/webcam.edit.jsx'),
+						components: {
+							edit: AdminBro.bundle("./src/visitante/components/webcam.edit.tsx"),
 						},
 					},
 				},
 				actions: {
 					new: {
 						after: async (response, request, context) => {
-							const newRes = await webcamAfterHook(response, request, context);
-							return uploadAfterHook(newRes, request, context);
+							// const newRes = await webcamAfterHook(response, request, context);
+							// return uploadAfterHook(newRes, request, context);
+							return uploadAfterHook(response, request, context);
 						},
 						before: async (request, context) => {
-							const newReq = await webcamBeforeHook(request, context);
-							return uploadBeforeHook(newReq, context);
+							// const newReq = await webcamBeforeHook(request, context);
+							// return uploadBeforeHook(newReq, context);
+							return uploadBeforeHook(request, context);
 						},
 					},
 					edit: {
@@ -158,6 +153,12 @@ const adminBro = new AdminBro({
 					},
 					delete: {
 						isAccessible: podeEditarUsuarios,
+					},
+					list: {
+						sort: {
+							sortBy: "_id",
+							direction: "desc",
+						},
 					},
 					// new: { isAccessible: podeEditarUsuarios },
 					// show: { isAccessible: podeEditarUsuarios },
