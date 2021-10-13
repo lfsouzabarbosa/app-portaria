@@ -8,13 +8,14 @@ const Component = () => {
     const camera = useRef(null);
     const [numberOfCameras, setNumberOfCameras] = useState(0);
     const [image, setImage] = useState(null);
-    console.log(image)
+    console.log(image);
+    console.log(new Date().toISOString());
 
     return (
         <Box flex flexDirection="column" variant="white" alignItems="center">
                 <Camera ref={camera} />
                 <Webcam
-                        audio={true}
+                        audio={false}
                         height={300}
                         ref={camera}
                         width={200}
