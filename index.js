@@ -56,6 +56,7 @@ const visita = mongoose.model('Visita', {
     }
 })
 
+
 const {
     after : uploadAfterHook,
     before : uploadBeforeHook,
@@ -65,6 +66,7 @@ const {
 	after: webcamAfterHook, 
 	before: webcamBeforeHook,
 } = require("./src/visitante/actions/webcam.hook");
+
 
 const adminBro = new AdminBro({
 	databases: [],
