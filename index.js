@@ -127,7 +127,7 @@ const adminBro = new AdminBro({
 						},
 					},
 					webcam: {
-						isVisible: { list: true, filter: false, show: true, edit: true },
+						isVisible: { list: false, filter: false, show: true, edit: true },
 						components:{
 							edit: AdminBro.bundle('./src/visitante/components/webcam.edit.jsx'),
 						},
