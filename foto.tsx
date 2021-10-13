@@ -10,7 +10,7 @@ const foto = () => {
         height: 720,
         facingMode: "user"
     };
-    let webcamRef = React.useRef();
+    let webcamRef = React.useRef(null);
     const WebcamCapture = () => {
         
         const imageSrc = webcamRef.current.getScreenshot();
@@ -29,7 +29,7 @@ const foto = () => {
                         width={800}
                         videoConstraints={videoConstraints}
                     />
-                    <Button onClick={() => WebcamCapture}>Tirar foto</Button>
+                    <Button onClick={() => WebcamCapture} ref= {webcamRef}>Tirar foto</Button>
                 </>
             </Box>
         )

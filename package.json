@@ -14,6 +14,8 @@
     "mongoose": "^6.0.8",
     "nodemon": "^2.0.13",
     "pm2": "^5.1.2",
+    "react-camera-pro": "^1.1.0",
+    "react-camera-pro-2": "^1.1.1",
     "react-console-log": "^1.1.14",
     "react-webcam": "^6.0.0",
     "tslib": "^2.3.1",

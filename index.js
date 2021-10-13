@@ -90,7 +90,7 @@ const adminBro = new AdminBro({
                 parent: 'Menu',
                 properties: {
                     foto: {
-                        type: 'richtext',
+                        //type: 'richtext',
                         isVisible: { list: true, filter: false, show: true, edit: true },
                     },
                     data: {
@@ -99,6 +99,13 @@ const adminBro = new AdminBro({
                     id: {
                         isVisible: { list: false, filter: false, show: false, edit: false },
                     },
+                    webcam: {
+                        //type: 'richtext',
+                        isVisible: { list: true, filter: false, show: true, edit: true },
+                        components: {
+                            edit: AdminBro.bundle('./webcam.jxs')
+                        }
+                    }, 
                 },
                 actions: {
                     edit: { isAccessible: podeEditarUsuarios },
@@ -132,6 +139,11 @@ const adminBro = new AdminBro({
         }
 
     ],
+    pages: {
+        teste: {
+            component: AdminBro.bundle('./webcam')
+        }
+    },
     dashboard: {
         component: AdminBro.bundle('./home'),
     },
