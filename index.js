@@ -9,18 +9,18 @@ const moment = require('moment')
 AdminBro.registerAdapter(AdminBroMongoose)
 
 const run = async () => {
-    await mongoose.connect('mongodb://localhost:27017/test?readPreference=primary&appname=MongoDB%20Compass&directConnection=true&ssl=false', {
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
-    });
+	await mongoose.connect('mongodb://localhost:27017/test?readPreference=primary&appname=MongoDB%20Compass&directConnection=true&ssl=false', {
+		useNewUrlParser: true,
+		useUnifiedTopology: true,
+	});
 }
 run()
 
 const Usuario = mongoose.model('Usuario', {
-    nome: { type: String, required: true },
-    senha: { type: String, required: true },
-    email: { type: String, required: true },
-    acesso: { type: String, enum: ['Admin', 'Porteiro'], required: true },
+	nome: { type: String, required: true },
+	senha: { type: String, required: true },
+	email: { type: String, required: true },
+	acesso: { type: String, enum: ['Admin', 'Porteiro'], required: true },
 })
 
 const podeEditarUsuarios = ({ currentAdmin }) => currentAdmin && currentAdmin.acesso === 'Admin'
@@ -28,41 +28,51 @@ const podeEditarUsuarios = ({ currentAdmin }) => currentAdmin && currentAdmin.ac
 let DataAtual = new Date()
 
 const visitante = mongoose.model('Visitante', {
-    nome: {
-        type: String,
-        required: true
-    },
-    Documento: {
-        type: String,
-        required: true
-    },
-    profilePhotoLocation: {
-        type: String,
-    }
+	nome: {
+		type: String,
+		required: true
+	},
+	Documento: {
+		type: String,
+		required: true
+	},
+	profilePhotoLocation: {
+		type: String,
+	},
+	casa: {
+		type: String,
+		required: true
+	},
+	data: {
+		type: Date,
+		required: true,
+		default: DataAtual
+	}
 })
 
 const visita = mongoose.model('Visita', {
-    visitante: { 
-        type: mongoose.ObjectId,
-        ref: 'Visitante' },
-    casa: {
-        type: String,
-        required: true
-    },
-    data: {
-        type: Date,
-        required: true,
-        default: DataAtual
-    }
+	visitante: {
+		type: mongoose.ObjectId,
+		ref: 'Visitante'
+	},
+	casa: {
+		type: String,
+		required: false
+	},
+	data: {
+		type: Date,
+		required: false,
+		default: DataAtual
+	}
 })
-
+ 
 const {
-    after : uploadAfterHook,
-    before : uploadBeforeHook,
+	after: uploadAfterHook,
+	before: uploadBeforeHook,
 } = require('./src/visitante/actions/upload-image.hook');
 
-const { 
-	after: webcamAfterHook, 
+const {
+	after: webcamAfterHook,
 	before: webcamBeforeHook,
 } = require("./src/visitante/actions/webcam.hook");
 
@@ -85,7 +95,7 @@ const adminBro = new AdminBro({
 							new: true,
 						},
 					},
-					id: {
+					_id: {
 						isVisible: { list: false, filter: false, show: false, edit: false },
 					},
 				},
@@ -103,29 +113,54 @@ const adminBro = new AdminBro({
 			options: {
 				parent: "Menu",
 				properties: {
-					data: {
-						isVisible: { list: false, filter: false, show: true, edit: false },
+					nome: {
+						position: 1
 					},
-					id: {
+					Documento: {
+						position: 2
+					},
+					casa: {
+						position: 3,
+						isVisible: { list: false, filter: false, show: true, edit: true },
+					},
+					foto: {
+						position: 4,
+						components: {
+							edit: AdminBro.bundle("./src/visitante/components/upload-image.edit.tsx"),
+							list: AdminBro.bundle("./src/visitante/components/upload-image.list.tsx"),
+							show: AdminBro.bundle("./src/visitante/components/upload-image.show.tsx"),
+						},
+						isVisible: { list: true, filter: false, show: true, edit: true },
+
+					},
+					data: {
+						isVisible: { list: false, filter: false, show: false, edit: false },
+					},
+					Visita: {
+						isVisible: { list: true, filter: false, show: true, edit: false },
+						components: {
+							show: AdminBro.bundle("./src/visitante/components/nova-visita.tsx"),
+							//list: AdminBro.bundle("./src/visitante/components/nova-visita.tsx"),
+						},
+					},
+					_id: {
+						isVisible: { list: false, filter: false, show: false, edit: false },
+					},
+					profilePhotoLocation: {
 						isVisible: { list: false, filter: false, show: false, edit: false },
 					},
 					//deixa visivel por eqto 202110111805
 					// profilePhotoLocation:{
 					//     isVisible: false,
 					// },
-					uploadImage: {
-						components: {
-							edit: AdminBro.bundle("./src/visitante/components/upload-image.edit.tsx"),
-							list: AdminBro.bundle("./src/visitante/components/upload-image.list.tsx"),
-						},
-					},
-					webcam: {
-						isVisible: { list: false, filter: false, show: true, edit: true },
+
+					/*webcam: {
+						isVisible: { list: false, filter: false, show: false, edit: false },
 						components: {
 							edit: AdminBro.bundle("./src/visitante/components/webcam.edit.tsx"),
 						},
-					},
-				},
+					}, */
+				},  
 				actions: {
 					new: {
 						after: async (response, request, context) => {
@@ -149,42 +184,49 @@ const adminBro = new AdminBro({
 						isAccessible: true, //podeEditarUsuarios
 					},
 					show: {
-						isVisible: false,
+						isVisible: true,
 					},
 					delete: {
-						isAccessible: podeEditarUsuarios,
-					},
-					list: {
-						sort: {
-							sortBy: "_id",
-							direction: "desc",
-						},
+						//	isAccessible: podeEditarUsuarios,
 					},
 					// new: { isAccessible: podeEditarUsuarios },
 					// show: { isAccessible: podeEditarUsuarios },
 					// list: { isAccessible: podeEditarUsuarios },
 				},
 			},
-		},
+		}, 
 		{
 			resource: visita,
 			options: {
 				parent: "Menu",
 				properties: {
+					visitante: {
+						isVisible: { list: true, filter: false, show: true, edit: true },
+					}, 
+					casa: {
+						type: 'richtext',
+						isVisible: { list: false, filter: false, show: true, edit: true },
+					}, 
 					data: {
 						isVisible: { list: true, filter: false, show: true, edit: false },
 					},
-					id: {
+					_id: {
 						isVisible: { list: false, filter: false, show: false, edit: false },
 					},
+					foto: {
+						components: {
+							edit: AdminBro.bundle("./src/visita/components/upload-image.show.tsx"),
+						},
+						isVisible: { list: false, filter: false, show: false, edit: false },
+					}
 				},
 				actions: {
-					edit: { isAccessible: podeEditarUsuarios },
+					// edit: { isAccessible: podeEditarUsuarios },
 					delete: { isAccessible: podeEditarUsuarios },
 					// new: { isAccessible: podeEditarUsuarios },
 					// show: { isAccessible: podeEditarUsuarios },
 					// list: { isAccessible: podeEditarUsuarios },
-				},
+				}
 			},
 		},
 	],
@@ -199,18 +241,18 @@ const adminBro = new AdminBro({
 	locale: {
 		translations: {
 			actions: {
-				new: "Cadastrar",
+				new: "",
 				edit: "Editar",
 				show: "Mostrar",
 				delete: "Deletar",
 				bulkDelete: "Deletar tudo",
-				list: "Cadastros",
+				list: "",
 			},
 			buttons: {
 				save: "Salvar",
 				addNewItem: "Adicionar Novo Item",
 				filter: "Buscar",
-				applyChanges: "Aplicar Mudanças",
+				applyChanges: "Pesquisar",
 				resetFilter: "Limpar Filtros",
 				confirmRemovalMany: "Confirmar a remoção de {{count}} registro(s)",
 				confirmRemovalMany_plural: "Confirmar a remoção de {{count}} registros",
@@ -285,19 +327,6 @@ const adminBro = new AdminBro({
 });
 
 const router = AdminBroExpress.buildRouter(adminBro)
-// const router = AdminBroExpress.buildAuthenticatedRouter(adminBro, {
-//     authenticate: async (email, senha) => {
-//       const user = await Usuario.findOne({ email })
-//       if (user) {
-//         const matched = await user.senha
-//         if (matched) {
-//           return user
-//         }
-//       }
-//       return false
-//     },
-//     cookiePassword: 'some-secret-password-used-to-secure-cookie',
-//   })
 
 app.use(adminBro.options.rootPath, router)
 

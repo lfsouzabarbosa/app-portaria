@@ -11,9 +11,9 @@ const Dashboard = () => {
                     <img width="170px" src="https://i.pinimg.com/564x/ae/22/9f/ae229fcaf83fa9994031742d25ce84a1.jpg"></img>
             <div>
                 <Link href="./admin/resources/Visitante/actions/new">
-                    <Button>1º Vez</Button>
+                    <Button>1ª Vez</Button>
                 </Link>
-                <Link href="./admin/resources/Visita/actions/new">
+                <Link href="./admin/resources/Visitante?filters.nome=">
                     <Button>Visita</Button>
                 </Link>
             </div>

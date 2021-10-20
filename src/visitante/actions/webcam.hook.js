@@ -12,9 +12,9 @@ const after = async (response, request, context) => {
         console.log("record",record);
 		console.log("image",image);
 		console.log("webcam.hook.after - fim", new Date().toISOString());
-		// const filePath = path.join("uploads", record.id().toString(), uploadImage.name);
+		// const filePath = path.join("uploads", record.id().toString(), foto.name);
 		// await fs.promises.mkdir(path.dirname(filePath), { recursive: true });
-		// await fs.promises.rename(uploadImage.path, filePath);
+		// await fs.promises.rename(foto.path, filePath);
 		// await record.update({ profilePhotoLocation: `/${filePath}` });
 	//}
     return response;
@@ -23,7 +23,7 @@ const after = async (response, request, context) => {
 /** @type {AdminBro.Before} */
 const before = async (request, context) =>{
     if (request.method === 'post'){
-        const {uploadImage, image, ...otherParams} = request.payload;
+        const {foto, image, ...otherParams} = request.payload;
 		console.log("image from request.payload", image);
 
         const {record } = context
@@ -33,15 +33,15 @@ const before = async (request, context) =>{
         console.log("webcam.hook.before - ini", new Date().toISOString());
         console.log("record",record);
 		console.log("image", image);
-        console.log("uploadImage", uploadImage);
-        if (uploadImage){
-			console.log("uploadImage.length", uploadImage.length);
-			console.log("uploadImage.size", uploadImage.size);
+        console.log("foto", foto);
+        if (foto){
+			console.log("foto.length", foto.length);
+			console.log("foto.size", foto.size);
 		}
         console.log("webcam.hook.before - fim", new Date().toISOString());
     //}
 
-        // context.uploadImage = uploadImage;
+        // context.foto = foto;
         
         return {
             ...request,

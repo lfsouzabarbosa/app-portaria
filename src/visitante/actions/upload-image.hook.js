@@ -5,13 +5,13 @@ const AdminBro = require("admin-bro");
 
 /** @type {AdminBro.After<AdminBro.ActionResponse>} */
 const after = async (response, request, context) => {
-    const {record, uploadImage} = context
+    const {record, foto} = context
 
-    if (record.isValid() && uploadImage){
-        const filePath = path.join('uploads', record.id().toString(), uploadImage.name);
+    if (record.isValid() && foto){
+        const filePath = path.join('uploads', record.id().toString(), foto.name);
         await fs.promises.mkdir(path.dirname(filePath), {recursive: true});
 
-        await fs.promises.rename(uploadImage.path, filePath);
+        await fs.promises.rename(foto.path, filePath);
 
         await record.update({ profilePhotoLocation: `/${filePath}` });
     }
@@ -21,9 +21,9 @@ const after = async (response, request, context) => {
 /** @type {AdminBro.Before} */
 const before = async (request, context) =>{
     if (request.method === 'post'){
-        const {uploadImage, ...otherParams} = request.payload;
+        const {foto, ...otherParams} = request.payload;
 
-        context.uploadImage = uploadImage;
+        context.foto = foto;
         
         return {
             ...request,

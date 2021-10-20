@@ -9,7 +9,7 @@ const Edit: React.FC<BasePropertyProps> = (props) => {
     return (
 		<Box>
 		    {srcImg ? (
-                <img src={srcImg} width="100px"/>
+                <img src={srcImg} width="300px"/>
             ) : 'Sem foto'}
 		</Box>
 	);

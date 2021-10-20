@@ -10,14 +10,17 @@
     "@rrelmy/react-webcam": "^5.2.3",
     "admin-bro": "^4.0.1",
     "argon2": "^0.28.2",
+    "axios": "^0.23.0",
     "express": "^4.17.1",
     "express-formidable": "^1.2.0",
     "express-session": "^1.17.2",
+    "jquery": "^3.6.0",
     "mongoose": "^6.0.10",
     "nodemon": "^2.0.13",
     "pm2": "^5.1.2",
     "react-camera-pro": "^1.1.0",
     "react-console-log": "^1.1.14",
+    "react-dropdown-select": "^4.7.4",
     "react-webcam": "^6.0.0",
     "tslib": "^2.3.1"
   }
