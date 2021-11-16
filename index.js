@@ -14,7 +14,7 @@ const run = async () => {
 		useUnifiedTopology: true,
 	});
 }
-run()
+run() 
 
 const Usuario = mongoose.model('Usuario', {
 	nome: { type: String, required: true },
