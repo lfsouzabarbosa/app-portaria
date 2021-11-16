@@ -10,13 +10,7 @@ const Edit: React.FC<BasePropertyProps> = (props) => {
   const srcImg = record.params['_id']
   
   let DataAtual = new Date()
-  const options = [
-    { value: 'Casa 1', label: 'Casa 1' },
-    { value: 'Casa 2', label: 'Casa 2' },
-    { value: 'Casa 3', label: 'Casa 3' },
-    { value: 'Casa 4', label: 'Casa 4' },
-    { value: 'Casa 5', label: 'Casa 5' },
-  ]
+
    const [value, setValue] = React.useState("Insira aqui, a casa que será visitada.")
    let valorCasa = value
 
@@ -36,8 +30,8 @@ const Edit: React.FC<BasePropertyProps> = (props) => {
       .catch(function (error) {
         console.log(error);
       });
-    // alert("Visita cadastrada com sucesso");
-    // window.location.href = 'http://localhost:8080/admin'
+     alert("Visita cadastrada com sucesso");
+     window.location.href = 'http://localhost:8080/admin'
 
   }
   // <RichText id="casa" quill={{ theme: 'snow' }} value={value} onChange={setValue} />
