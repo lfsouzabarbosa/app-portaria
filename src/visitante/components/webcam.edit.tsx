@@ -12,12 +12,18 @@ const Edit: React.FC<BasePropertyProps> = (props) => {
 	console.log(image);
 	console.log(new Date().toISOString());
 
+	const handleCamera = () => {
+		// onChange(property.name, files[0]);
+		setImage(camera.current.takePhoto());
+		return false;
+	};
+
 	return (
 		<Box flex flexDirection="column" variant="white" alignItems="center">
 			<Camera ref={camera} />
 			<Webcam audio={false} height={300} ref={camera} width={200} />
-			<Button onClick={() => setImage(camera.current.takePhoto())}>Tirar foto</Button>
-			<img src={image} alt="" height={200} width={200} />
+			<Button onClick={handleCamera}>Tirar foto</Button>
+			<img src={image} alt="foto capturada" height={200} width={200} />
 		</Box>
 	);
 };

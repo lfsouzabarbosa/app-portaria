@@ -76,6 +76,7 @@ const {
 	before: webcamBeforeHook,
 } = require("./src/visitante/actions/webcam.hook");
 
+
 const adminBro = new AdminBro({
 	databases: [],
 	rootPath: "/admin",
@@ -158,20 +159,21 @@ const adminBro = new AdminBro({
 						isVisible: { list: false, filter: false, show: false, edit: false },
 						components: {
 							edit: AdminBro.bundle("./src/visitante/components/webcam.edit.tsx"),
+							// edit: AdminBro.bundle("./src/visitante/components/camera.tsx"),
 						},
 					}, */
 				},  
 				actions: {
 					new: {
 						after: async (response, request, context) => {
+							return uploadAfterHook(response, request, context);
 							// const newRes = await webcamAfterHook(response, request, context);
 							// return uploadAfterHook(newRes, request, context);
-							return uploadAfterHook(response, request, context);
 						},
 						before: async (request, context) => {
+							return uploadBeforeHook(request, context);
 							// const newReq = await webcamBeforeHook(request, context);
 							// return uploadBeforeHook(newReq, context);
-							return uploadBeforeHook(request, context);
 						},
 					},
 					edit: {
